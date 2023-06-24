@@ -1,34 +1,111 @@
 <link href="popup.css" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
 <script type="module" src="popup.js"></script>
 <script type="module" src="background.js"></script>
 <script src="./node_modules/crypto-js/crypto-js.js"></script>
+<script src="./node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
 <!-- Include CryptoJS library -->
 
 <div class="container">
   <div id="welcome">
-    <div class="title">Encrypt or Decrypt your passwords</div>
-    <label>Generate your unique key:</label><br />
-    <label>This unique key allows you to decode your generated passwords</label
-    ><br />
-    <input type="text" value="Juanes" id="key" required /><br />
-    <br />
-    <label>Generate passwords:</label><br />
-    <label for="name">Name:</label>
-    <input type="text" value="Jakeline" id="name" required /><br />
+    <div class="logo">
+      <img src="/assets/logo.svg" alt="" />
+      <h1 class="appname">KeyCrypt</h1>
+    </div>
+    <div class="form">
+      <h4>
+        Remember that only with this key you will be able to unlock your
+        encrypted pattern.
+      </h4>
+      <div class="group">
+        <img class="iconform" src="/assets/key-fill.png" alt="" />
+        <input placeholder="Set your key" id="key" class="input" />
+      </div>
+    </div>
+    <hr />
+    <div class="form">
+      <h4>Generate your pattern base on your personal information</h4>
+      <div class="group">
+        <img class="iconform" src="/assets/user-fill.png" alt="" />
+        <input placeholder="Name" id="name" class="input" />
+      </div>
+      <div class="group">
+        <img class="iconform" src="/assets/cake-fill.png" alt="" />
+        <input
+          type="number"
+          placeholder="Year of birth"
+          id="yearBirth"
+          class="input"
+        />
+      </div>
+      <label id="yearBirthError" class="error"></label>
+      <div class="group">
+        <img class="iconform" src="/assets/palette-fill.png" alt="" />
+        <input placeholder="Favorite Color" id="favoriteColor" class="input" />
+      </div>
 
-    <label for="yearBirth">year of birth:</label>
-    <input type="number" value="1999" id="yearBirth" required /><br />
-    <label id="yearBirthError" class="error"></label>
+      <button class="cssbuttons-io-button" id="generateKey">
+        Generate Pattern
+        <div class="icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+            />
+          </svg>
+        </div>
+      </button>
+    </div>
 
-    <label for="favoriteColor">Favorite Color:</label>
-    <input type="text" value="BlancoBMW" id="favoriteColor" required /><br />
-
-    <button type="button" id="generateKey">Generate</button>
-    <br />
-    <br />
-    <label id="generatedPassword"></label>
-    <br /><br />
-    <button type="button" id="saveKey">Save this pattern</button>
+    <div class="form">
+      <div class="group-2">
+        <img class="iconform" src="/assets/lock-password-fill.png" alt="" />
+        <input
+          placeholder="Pattern generated"
+          id="generatedPassword"
+          class="input"
+        />
+      </div>
+      <button>
+        <svg
+          width="27"
+          height="25"
+          viewBox="0 0 17 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <rect width="17" height="15" fill="url(#pattern0)" />
+          <defs>
+            <pattern
+              id="pattern0"
+              patternContentUnits="objectBoundingBox"
+              width="1"
+              height="1"
+            >
+              <use
+                xlink:href="#image0_6_178"
+                transform="matrix(0.0416667 0 0 0.0472222 0 -0.0666667)"
+              />
+            </pattern>
+            <image
+              id="image0_6_178"
+              width="24"
+              height="24"
+              xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMFJREFUSEvlldENwjAMRO82oZvAJLAJMAkwCWxCNzlk1KJUdaSQxPyQ/9yLz2eHCD4M1sdvAZLuALYVVZ1Inr17iwokqUJ8vuJCXADJIuucB60gvQFWzQISARhJDrNvEQCkFvds8icf/wt4p0PSBsDe0pKbmRqLVvmWdABwcac3maPSJg8kx1RsquQZBjDh3GrpZdEx14cagNlzBXCbLOne5K+WbE0F3QAWO4tfy3mQ3LnLrkU1O3QRoqlm0c/V8ogX+hV6GXm4zXcAAAAASUVORK5CYII="
+            />
+          </defs>
+        </svg>
+      </button>
+    </div>
   </div>
   <div id="KeyField">
     <label for="name">Type your key:</label>
@@ -37,7 +114,7 @@
   </div>
   <div id="result">
     <div class="title">This is your password suggested</div>
-    <label id="passwordSuggested" ></label>
-    <label id="passwordSuggestedEncrypted" ></label>
+    <label id="passwordSuggested"></label>
+    <label id="passwordSuggestedEncrypted"></label>
   </div>
 </div>

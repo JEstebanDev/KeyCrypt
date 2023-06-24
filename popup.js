@@ -8,6 +8,8 @@ yearBirthInput.addEventListener("input", function () {
   const yearBirth = yearBirthInput.value;
   if (yearBirth.length !== 4) {
     yearBirthError.textContent = "Year of birth should be 4 digits.";
+  } else {
+    yearBirthError.textContent = "";
   }
 });
 
@@ -75,7 +77,7 @@ function generateKey() {
   const shuffledPassword = randomizeData(passwordStyle);
   const output = generateStringFromPosition(shuffledPassword) + "0";
 
-  document.getElementById("generatedPassword").textContent = output;
+  document.getElementById("generatedPassword").value = output;
 
   document.getElementById("saveKey").addEventListener("click", () => {
     const encryptPassword = encryptData(output, key);
@@ -98,12 +100,20 @@ function validateFields() {
   const favoriteColor = document.getElementById("favoriteColor").value;
 
   if (!key || !name || !yearBirth || !favoriteColor) {
-    alert("Please fill in all the required fields.");
+    Swal.fire({
+      title: "Error!",
+      text: "Please fill in all the required fields.",
+      icon: "error",
+    });
     return;
   }
 
   if (yearBirth.length !== 4) {
-    alert("Year of birth should be 4 digits.");
+    Swal.fire({
+      title: "Error!",
+      text: "Year of birth should be 4 digits",
+      icon: "error",
+    });
     return;
   }
 

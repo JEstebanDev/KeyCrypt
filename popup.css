@@ -1,10 +1,201 @@
 .container {
-  width: 280px;
-  color: #314d3e;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+body {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  width: 300px;
+  height: 300px !important;
+  background: linear-gradient(
+    137deg,
+    rgb(22 0 105) 9.38%,
+    rgb(31 7 185 / 93%) 57.29%,
+    rgb(131 0 177 / 87%) 100%
+  );
 }
 
 .title {
   font-size: 14px;
   font-weight: bold;
   padding: 8px;
+}
+
+/*CSS CARD WELCOME */
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.appname {
+  color: #fff;
+  font-size: 0.9rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+h4 {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #fff;
+  text-align: center;
+}
+
+.error {
+  color: #ff6666;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1rem;
+}
+
+.group {
+  display: flex;
+  line-height: 28px;
+  align-items: center;
+  position: relative;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+.group-2 {
+  display: flex;
+  line-height: 28px;
+  align-items: center;
+  position: relative;
+  max-width: 180px;
+  margin: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  padding-left: 2.5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  color: #0d0c22;
+  transition: 0.3s ease;
+}
+
+.input::placeholder {
+  color: #9e9ea7;
+}
+
+.input:focus,
+input:hover {
+  outline: none;
+  border-color: rgba(234, 76, 137, 0.4);
+  box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+}
+
+.iconform {
+  position: absolute;
+  fill: #9e9ea7;
+  left: 1rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.cssbuttons-io-button {
+  background: #c147e9;
+  color: white;
+  font-family: inherit;
+  margin-top: 0.5rem;
+  padding: 0.35em;
+  padding-left: 1em;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 2em;
+  border: none;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 1.6em -0.6em #c147e9;
+  overflow: hidden;
+  position: relative;
+  height: 2.8em;
+  padding-right: 3.3em;
+}
+
+.cssbuttons-io-button .icon {
+  background: white;
+
+  margin-left: 1.3rem;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.2em;
+  width: 2.2em;
+  border-radius: 1em;
+  box-shadow: 0.1em 0.1em 0.6em 0.2em #c147e9;
+  right: 0.3em;
+  transition: all 0.3s;
+}
+
+.cssbuttons-io-button:hover .icon {
+  width: calc(100% - 0.6em);
+}
+
+.cssbuttons-io-button .icon svg {
+  width: 1.1em;
+  transition: transform 0.3s;
+  color: #c147e9;
+}
+
+.cssbuttons-io-button:hover .icon svg {
+  transform: translateX(0.1em);
+}
+
+.cssbuttons-io-button:active .icon {
+  transform: scale(0.95);
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.button--submit {
+  min-height: 50px;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 0 6px 6px 0;
+  background-color: #5e4dcd;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button--submit:hover {
+  background-color: #5e5dcd;
+}
+
+.input:focus,
+.input:focus-visible {
+  border-color: #3898ec;
+  outline: none;
+}
+
+button {
+  height: 43px;
+  border: none;
+  display: flex;
+  cursor: pointer;
+  padding: 0.5rem;
+  background-color: #c147e9;
+  color: #ffffff;
+  align-items: center;
+  border-radius: 1.5rem;
 }
