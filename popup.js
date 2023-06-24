@@ -24,7 +24,6 @@ function checkKeyFunction() {
       passwordPlainText,
       document.getElementById("keyChecking").value
     );
-    console.log(show);
     const passwordSuggested = document.getElementById("passwordSuggested");
     const passwordSuggestedEncrypted = document.getElementById(
       "passwordSuggestedEncrypted"
@@ -240,3 +239,4 @@ function decryptData(encryptedData, key) {
   );
   return decrypted;
 }
+

@@ -9,11 +9,12 @@
   },
   "action": {
     "default_title": "Current URL",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": "assets/logo.png"
   },
   "content_scripts": [
     {
-      "matches": ["http://localhost/*"], 
+      "matches": ["http://localhost/*"],
       "js": ["popup.js"]
     }
   ]
