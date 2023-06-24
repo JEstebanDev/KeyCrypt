@@ -1,0 +1,43 @@
+<link href="popup.css" rel="stylesheet" type="text/css" />
+<script type="module" src="popup.js"></script>
+<script type="module" src="background.js"></script>
+<script src="./node_modules/crypto-js/crypto-js.js"></script>
+<!-- Include CryptoJS library -->
+
+<div class="container">
+  <div id="welcome">
+    <div class="title">Encrypt or Decrypt your passwords</div>
+    <label>Generate your unique key:</label><br />
+    <label>This unique key allows you to decode your generated passwords</label
+    ><br />
+    <input type="text" value="Juanes" id="key" required /><br />
+    <br />
+    <label>Generate passwords:</label><br />
+    <label for="name">Name:</label>
+    <input type="text" value="Jakeline" id="name" required /><br />
+
+    <label for="yearBirth">year of birth:</label>
+    <input type="number" value="1999" id="yearBirth" required /><br />
+    <label id="yearBirthError" class="error"></label>
+
+    <label for="favoriteColor">Favorite Color:</label>
+    <input type="text" value="BlancoBMW" id="favoriteColor" required /><br />
+
+    <button type="button" id="generateKey">Generate</button>
+    <br />
+    <br />
+    <label id="generatedPassword"></label>
+    <br /><br />
+    <button type="button" id="saveKey">Save this pattern</button>
+  </div>
+  <div id="KeyField">
+    <label for="name">Type your key:</label>
+    <input type="text" value="Juanes" id="keyChecking" required /><br />
+    <button type="button" id="checkKey">Check</button>
+  </div>
+  <div id="result">
+    <div class="title">This is your password suggested</div>
+    <label id="passwordSuggested" ></label>
+    <label id="passwordSuggestedEncrypted" ></label>
+  </div>
+</div>
