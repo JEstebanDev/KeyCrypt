@@ -4,18 +4,23 @@
   align-items: center;
   padding: 1rem;
 }
+html {
+  width: 320px;
+  background: linear-gradient(
+      137deg,
+      rgb(22 0 105) 9.38%,
+      rgb(31 7 185 / 93%) 57.29%,
+      rgb(131 0 177 / 87%) 100%
+    )
+    no-repeat center center fixed;
+  background-size: cover;
+  overflow-y: hidden;
+}
+
 body {
-  width: 300px;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
-
-  background: linear-gradient(
-    137deg,
-    rgb(22 0 105) 9.38%,
-    rgb(31 7 185 / 93%) 57.29%,
-    rgb(131 0 177 / 87%) 100%
-  );
 }
 
 .title {
@@ -30,6 +35,28 @@ body {
   align-items: center;
   text-align: center;
   color: #eebaff;
+  text-decoration: none;
+}
+.resetKeybutton {
+  height: 8px;
+  display: inline-block;
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.resetKeybutton :hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
+
+.resetKey {
+  margin-top: 0.6rem;
+  font-size: 11px;
+  font-weight: 100;
+  text-align: center;
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -144,7 +171,6 @@ h4 {
 
 .cssbuttons-io-button .icon {
   background: white;
-
   margin-left: 1.3rem;
   position: absolute;
   display: flex;
@@ -152,7 +178,7 @@ h4 {
   justify-content: center;
   height: 2.2em;
   width: 2.2em;
-  border-radius: 1m;
+  border-radius: 1em;
   box-shadow: 0.1em 0.1em 0.6em 0.2em #c147e9;
   right: 0.3em;
   transition: all 0.3s;

@@ -129,48 +129,49 @@
         <img src="/assets/fingerprint-line.png" alt="" />
         <span class="space">Check Key</span>
       </button>
-    </div>
-
-    <div class="result">
-      <hr />
-      <h4>This is the pattern suggested for this website</h4>
-      <div class="form">
-        <div class="group-2">
-          <img class="iconform" src="/assets/lock-password-fill.png" alt="" />
-          <input
-            placeholder="Pattern generated"
-            id="generatedPassword"
-            class="input"
-          />
-        </div>
-        <button class="save" id="saveKey">
-          <div class="svg-wrapper-1">
-            <div class="svg-wrapper">
-              <img src="/assets/file-copy-white.png" alt="" />
-            </div>
+      <div id="Result">
+        <hr />
+        <h4>This is the pattern suggested for this website</h4>
+        <div class="form">
+          <div class="group-2">
+            <img class="iconform" src="/assets/lock-password-fill.png" alt="" />
+            <input
+              placeholder="Pattern generated"
+              id="patternPassword"
+              class="input"
+            />
           </div>
-        </button>
-        <div class="group-2">
-          <img class="iconform" src="/assets/lock-password-fill.png" alt="" />
-          <input
-            placeholder="Password encrypted"
-            id="generatedPassword"
-            class="input"
-          />
-        </div>
-        <button class="save" id="saveKey">
-          <div class="svg-wrapper-1">
-            <div class="svg-wrapper">
-              <img src="/assets/file-copy-white.png" alt="" />
+          <button class="save" id="copyPattern">
+            <div class="svg-wrapper-1">
+              <div class="svg-wrapper">
+                <img src="/assets/file-copy-white.png" alt="" />
+              </div>
             </div>
+          </button>
+          <div class="group-2">
+            <img class="iconform" src="/assets/lock-password-fill.png" alt="" />
+            <input
+              placeholder="Password encrypted"
+              id="passwordSuggestedEncrypted"
+              class="input"
+            />
           </div>
-        </button>
+          <button class="save" id="copyEncrypted">
+            <div class="svg-wrapper-1">
+              <div class="svg-wrapper">
+                <img src="/assets/file-copy-white.png" alt="" />
+              </div>
+            </div>
+          </button>
+        </div>
       </div>
-
-      <label id="passwordSuggested"></label>
-      <label id="passwordSuggestedEncrypted"></label>
+      <span class="resetKey">
+        If you want to delete your key, and generated a new one,
+        <button class="resetKeybutton" id="resetKey">click here</button>
+      </span>
     </div>
   </div>
+
   <div class="createdby">
     <svg
       xmlns="http://www.w3.org/2000/svg"
