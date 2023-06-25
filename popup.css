@@ -4,24 +4,60 @@
   align-items: center;
   padding: 1rem;
 }
+html {
+  width: 320px;
+  background: linear-gradient(
+      137deg,
+      rgb(22 0 105) 9.38%,
+      rgb(31 7 185 / 93%) 57.29%,
+      rgb(131 0 177 / 87%) 100%
+    )
+    no-repeat center center fixed;
+  background-size: cover;
+  overflow-y: hidden;
+}
+
 body {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
-  width: 300px;
-  height: 300px !important;
-  background: linear-gradient(
-    137deg,
-    rgb(22 0 105) 9.38%,
-    rgb(31 7 185 / 93%) 57.29%,
-    rgb(131 0 177 / 87%) 100%
-  );
 }
 
 .title {
   font-size: 14px;
   font-weight: bold;
   padding: 8px;
+}
+
+.createdby {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #eebaff;
+  text-decoration: none;
+}
+.resetKeybutton {
+  height: 8px;
+  display: inline-block;
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.resetKeybutton :hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
+
+.resetKey {
+  margin-top: 0.6rem;
+  font-size: 11px;
+  font-weight: 100;
+  text-align: center;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 /*CSS CARD WELCOME */
@@ -87,17 +123,6 @@ h4 {
   transition: 0.3s ease;
 }
 
-.input::placeholder {
-  color: #9e9ea7;
-}
-
-.input:focus,
-input:hover {
-  outline: none;
-  border-color: rgba(234, 76, 137, 0.4);
-  box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
-}
-
 .iconform {
   position: absolute;
   fill: #9e9ea7;
@@ -105,7 +130,6 @@ input:hover {
   width: 1rem;
   height: 1rem;
 }
-
 .cssbuttons-io-button {
   background: #c147e9;
   color: white;
@@ -127,9 +151,26 @@ input:hover {
   padding-right: 3.3em;
 }
 
+.check-button {
+  background: #c147e9;
+  color: white;
+  font-family: inherit;
+  margin-top: 0.5rem;
+  padding: 0.35em;
+  padding-left: 1em;
+  padding-right: 1em;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 2em;
+  border: none;
+}
+
+.space {
+  padding-left: 0.5rem;
+}
+
 .cssbuttons-io-button .icon {
   background: white;
-
   margin-left: 1.3rem;
   position: absolute;
   display: flex;
@@ -198,4 +239,22 @@ button {
   color: #ffffff;
   align-items: center;
   border-radius: 1.5rem;
+}
+.save {
+  width: 43px;
+  justify-content: center;
+}
+
+button:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes fly-1 {
+  from {
+    transform: translateY(0.1em);
+  }
+
+  to {
+    transform: translateY(-0.1em);
+  }
 }

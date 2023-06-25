@@ -2,16 +2,55 @@
 document.getElementById("generateKey").addEventListener("click", generateKey);
 document.getElementById("checkKey").addEventListener("click", checkKeyFunction);
 const yearBirthInput = document.getElementById("yearBirth");
+document.getElementById("copyPattern").addEventListener("click", copyPattern);
+document
+  .getElementById("copyEncrypted")
+  .addEventListener("click", copyEncrypted);
+document.getElementById("resetKey").addEventListener("click", resetKey);
 
-yearBirthInput.addEventListener("input", function () {
-  const yearBirthError = document.getElementById("yearBirthError");
-  const yearBirth = yearBirthInput.value;
-  if (yearBirth.length !== 4) {
-    yearBirthError.textContent = "Year of birth should be 4 digits.";
-  } else {
-    yearBirthError.textContent = "";
+var input = document.getElementById("keyChecking");
+input.addEventListener("keydown", function (event) {
+  if (event.keyCode === 13) {
+    checkKeyFunction();
+    event.preventDefault();
   }
 });
+
+function resetKey() {
+  Swal.fire({
+    title:
+      '<span style="font-size:18px; font-weight:500px;">Do you want to delete your key?</span>',
+    width: 250,
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      localStorage.removeItem("pattern");
+      const formWelcome = document.getElementById("welcome");
+      const formEncrypt = document.getElementById("KeyField");
+      const formResult = document.getElementById("Result");
+      formWelcome.style.display = "block";
+      formEncrypt.style.display = "none";
+      formResult.style.display = "none";
+    }
+  });
+}
+
+function copyPattern() {
+  var inputElement = document.getElementById("patternPassword");
+  inputElement.select();
+  document.execCommand("copy");
+  window.getSelection().removeAllRanges();
+}
+
+function copyEncrypted() {
+  var inputElement = document.getElementById("passwordSuggestedEncrypted");
+  inputElement.select();
+  document.execCommand("copy");
+  window.getSelection().removeAllRanges();
+}
 
 function checkKeyFunction() {
   const decrypted = decryptData(
@@ -19,20 +58,25 @@ function checkKeyFunction() {
     document.getElementById("keyChecking").value
   );
   if (decrypted !== "") {
+    //Show the block where is input for patternPassword and passwordSuggestedEncrypted
+    const formResult = document.getElementById("Result");
+    formResult.style.display = "block";
+
     const passwordPlainText = decrypted.replace("LINK", urlWeb);
     const passwordEncrypted = encryptData(
       passwordPlainText,
       document.getElementById("keyChecking").value
     );
-    console.log(show);
-    const passwordSuggested = document.getElementById("passwordSuggested");
-    const passwordSuggestedEncrypted = document.getElementById(
-      "passwordSuggestedEncrypted"
-    );
-    passwordSuggested.textContent = passwordPlainText;
-    passwordSuggestedEncrypted.textContent = passwordEncrypted;
+    document.getElementById("patternPassword").value = passwordPlainText;
+    document.getElementById("passwordSuggestedEncrypted").value =
+      passwordEncrypted;
   } else {
-    passwordSuggested.textContent = "ERROR";
+    Swal.fire({
+      width: 250,
+      title:
+        '<span style="font-size:18px; font-weight:500px;">Check your key!</span>',
+      icon: "error",
+    });
   }
 }
 
@@ -80,17 +124,28 @@ function generateKey() {
   document.getElementById("generatedPassword").value = output;
 
   document.getElementById("saveKey").addEventListener("click", () => {
+    Swal.fire("Saved!", "", "success");
     const encryptPassword = encryptData(output, key);
     localStorage.setItem("pattern", encryptPassword);
     const formWelcome = document.getElementById("welcome");
-    const formEncrypt = document.getElementById("result");
-
+    const formEncrypt = document.getElementById("KeyField");
+    const formResult = document.getElementById("Result");
     formWelcome.style.display = "none";
     formEncrypt.style.display = "block";
-    yearBirthError.textContent;
+    formResult.style.display = "none";
+    resetFields();
+    document.getElementsByTagName("html")[0].style.height = "100px";
     const passwordSuggested = document.getElementById("passwordSuggested");
     passwordSuggested.textContent = output;
   });
+}
+
+function resetFields() {
+  document.getElementById("key").value = "";
+  document.getElementById("name").value = "";
+  document.getElementById("yearBirth").value = "";
+  document.getElementById("favoriteColor").value = "";
+  document.getElementById("generatedPassword").value = "";
 }
 
 function validateFields() {
@@ -101,18 +156,18 @@ function validateFields() {
 
   if (!key || !name || !yearBirth || !favoriteColor) {
     Swal.fire({
-      title: "Error!",
-      text: "Please fill in all the required fields.",
+      width: 200,
       icon: "error",
+      html: '<span style="font-size:14px">Please fill in all the required fields.</span>',
     });
     return;
   }
 
   if (yearBirth.length !== 4) {
     Swal.fire({
-      title: "Error!",
-      text: "Year of birth should be 4 digits",
+      width: 200,
       icon: "error",
+      text: "Year of birth should be 4 digits",
     });
     return;
   }
@@ -170,7 +225,7 @@ function extractWordFromUrl(url) {
   if (domain.startsWith("www.")) {
     domain = domain.slice(4);
   }
-  return extractConsonantsFromUrl(domain);
+  return extractFirstFourWords(extractConsonantsFromUrl(domain));
 }
 
 function extractConsonantsFromUrl(domain) {

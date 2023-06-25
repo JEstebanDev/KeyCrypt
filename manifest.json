@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "EncryptPassword",
+  "name": "KeyCrypt",
   "version": "0.0.1",
   "description": "Encrypt Password based on your key",
   "permissions": ["storage", "tabs"],
@@ -8,12 +8,13 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Current URL",
-    "default_popup": "popup.html"
+    "default_title": "KeyCrypt",
+    "default_popup": "popup.html",
+    "default_icon": "assets/logo.png"
   },
   "content_scripts": [
     {
-      "matches": ["http://localhost/*"], 
+      "matches": ["http://localhost/*"],
       "js": ["popup.js"]
     }
   ]
