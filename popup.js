@@ -1,13 +1,13 @@
 // Attaching event listeners to the input fields
 document.getElementById("generateKey").addEventListener("click", generateKey);
 document.getElementById("checkKey").addEventListener("click", checkKeyFunction);
-const yearBirthInput = document.getElementById("yearBirth");
 document.getElementById("copyPattern").addEventListener("click", copyPattern);
 document
   .getElementById("copyEncrypted")
   .addEventListener("click", copyEncrypted);
 document.getElementById("resetKey").addEventListener("click", resetKey);
 
+//This function is to check if the user press enter in the input field of keyChecking to be more friendly
 var input = document.getElementById("keyChecking");
 input.addEventListener("keydown", function (event) {
   if (event.keyCode === 13) {
@@ -16,6 +16,7 @@ input.addEventListener("keydown", function (event) {
   }
 });
 
+//This function basically delete the key from local storage
 function resetKey() {
   Swal.fire({
     title:
@@ -38,6 +39,7 @@ function resetKey() {
   });
 }
 
+//This function is to copy the patternPassword to the clipboard
 function copyPattern() {
   var inputElement = document.getElementById("patternPassword");
   inputElement.select();
@@ -45,6 +47,7 @@ function copyPattern() {
   window.getSelection().removeAllRanges();
 }
 
+//This function is to copy the passwordSuggestedEncrypted to the clipboard
 function copyEncrypted() {
   var inputElement = document.getElementById("passwordSuggestedEncrypted");
   inputElement.select();
@@ -52,6 +55,7 @@ function copyEncrypted() {
   window.getSelection().removeAllRanges();
 }
 
+//This function is to check if the key is correct and show the patternPassword and passwordSuggestedEncrypted
 function checkKeyFunction() {
   const decrypted = decryptData(
     localStorage.getItem("pattern"),
@@ -67,10 +71,12 @@ function checkKeyFunction() {
       passwordPlainText,
       document.getElementById("keyChecking").value
     );
+    //Set the value in the input field
     document.getElementById("patternPassword").value = passwordPlainText;
     document.getElementById("passwordSuggestedEncrypted").value =
       passwordEncrypted;
   } else {
+    //Show the error message
     Swal.fire({
       width: 250,
       title:
@@ -80,6 +86,7 @@ function checkKeyFunction() {
   }
 }
 
+//This is the object where is the style of the password
 const passwordStyle = {
   url: {
     position: 0,
@@ -103,26 +110,27 @@ const passwordStyle = {
   },
 };
 
+//This function is to generate the key is the MOST important function
 function generateKey() {
-  const { key, firstFourWordsName, yearBirth, firstFourWordsColor } =
+  const { key, firstThreeWordsName, yearBirth, firstTwoWordsColor } =
     validateFields();
   // Get the key and value
   const lastTwoDigits = yearBirth % 100;
-  const uppercaseColor = extractConsonantsFromUrl(
-    firstFourWordsColor.toUpperCase()
-  );
+
   const randomCharacters = generateRandomSpecialCharacters();
-
-  passwordStyle.name.value = firstFourWordsName;
+  // Set the value in the input field
+  passwordStyle.name.value = firstThreeWordsName;
   passwordStyle.yearBirth.value = lastTwoDigits;
-  passwordStyle.favoriteColor.value = uppercaseColor;
+  passwordStyle.favoriteColor.value = firstTwoWordsColor;
   passwordStyle.randomCharacters.value = randomCharacters;
-
+  console.log(passwordStyle);
+  // Generate the password randomly and set the values inside the object {} passwordStyle
   const shuffledPassword = randomizeData(passwordStyle);
+  //This functions takes the values and set as string
   const output = generateStringFromPosition(shuffledPassword) + "0";
-
+  // Set the value in the input field
   document.getElementById("generatedPassword").value = output;
-
+  //Save the key in the LocalStorage and show the block where is input for patternPassword and passwordSuggestedEncrypted
   document.getElementById("saveKey").addEventListener("click", () => {
     Swal.fire("Saved!", "", "success");
     const encryptPassword = encryptData(output, key);
@@ -133,14 +141,15 @@ function generateKey() {
     formWelcome.style.display = "none";
     formEncrypt.style.display = "block";
     formResult.style.display = "none";
+    //Reset the input fields
     resetFields();
+    //Reset the height of the popup
     document.getElementsByTagName("html")[0].style.height = "100px";
-    const passwordSuggested = document.getElementById("passwordSuggested");
-    passwordSuggested.textContent = output;
   });
 }
-
+//This function is to reset the input fields
 function resetFields() {
+  document.getElementById("keyChecking").value = "";
   document.getElementById("key").value = "";
   document.getElementById("name").value = "";
   document.getElementById("yearBirth").value = "";
@@ -148,11 +157,34 @@ function resetFields() {
   document.getElementById("generatedPassword").value = "";
 }
 
+//This function is to validate the input fields
 function validateFields() {
-  const key = document.getElementById("key").value;
-  const name = document.getElementById("name").value;
+  const key = document.getElementById("key").value.split(" ").join("");
+  const name = document.getElementById("name").value.split(" ").join("");
   const yearBirth = document.getElementById("yearBirth").value;
-  const favoriteColor = document.getElementById("favoriteColor").value;
+  const favoriteColor = document
+    .getElementById("favoriteColor")
+    .value.split(" ")
+    .join("");
+
+  // Check if all the fields are filled
+  if (!key || !name || !yearBirth || !favoriteColor) {
+    Swal.fire({
+      width: 200,
+      icon: "error",
+      html: '<span style="font-size:14px">Please fill in all the required fields.</span>',
+    });
+    return;
+  }
+
+  if (key == " " || name == " " || favoriteColor == " ") {
+    Swal.fire({
+      width: 200,
+      icon: "error",
+      html: '<span style="font-size:14px">Please fill in all the required fields.</span>',
+    });
+    return;
+  }
 
   if (!key || !name || !yearBirth || !favoriteColor) {
     Swal.fire({
@@ -163,6 +195,7 @@ function validateFields() {
     return;
   }
 
+  // Check if the year of birth is 4 digits
   if (yearBirth.length !== 4) {
     Swal.fire({
       width: 200,
@@ -171,29 +204,19 @@ function validateFields() {
     });
     return;
   }
-
-  let firstFourWordsName = "";
-  if (name.length <= 4) {
-    firstFourWordsName = name;
-  } else {
-    firstFourWordsName = extractFirstFourWords(name);
-  }
-
-  let firstFourWordsColor = "";
-  if (favoriteColor.length <= 5) {
-    firstFourWordsColor = favoriteColor;
-  } else {
-    firstFourWordsColor = extractFirstFourWords(favoriteColor);
-  }
-
+  let firstThreeWordsName = extractFirstThreeWords(name);
+  //Check if the year of birth is a number less than 2 digits
+  const uppercaseColor = extractConsonantsFromUrl(favoriteColor);
+  const firstTwoWordsColor = extractFirstTwoWords(uppercaseColor).toUpperCase();
   return {
     key,
-    firstFourWordsName,
+    firstThreeWordsName,
     yearBirth,
-    firstFourWordsColor,
+    firstTwoWordsColor,
   };
 }
 
+//This function is to get the current tab URL
 function getCurrentTabURL() {
   return new Promise((resolve, reject) => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -215,29 +238,33 @@ try {
   urlWeb = await getCurrentTabURL();
   urlWeb = extractWordFromUrl(urlWeb);
 } catch (error) {
-  console.error("Error:", error);
+  console.error("Error url:", error);
 }
 
+//This function is to extract the first four consonants from the URL
 function extractWordFromUrl(url) {
+  console.log(url);
+
   const parts = url.split("/");
   let domain = parts[2];
 
   if (domain.startsWith("www.")) {
     domain = domain.slice(4);
   }
+  //This function is to extract the first four consonants from the URL
   return extractFirstFourWords(extractConsonantsFromUrl(domain));
 }
-
+//This function is to extract the first four consonants from the URL
 function extractConsonantsFromUrl(domain) {
   return domain.match(/[bcdfghjklmnpqrstvwxyz]/gi).join("");
 }
 
+//This function is to generate the password style randomly
 function generateStringFromPosition(data) {
   const sortedKeys = Object.keys(data).sort(
     (a, b) => data[a].position - data[b].position
   );
   let result = "";
-
   sortedKeys.forEach((key) => {
     result += data[key].value.toString();
   });
@@ -245,6 +272,7 @@ function generateStringFromPosition(data) {
   return result;
 }
 
+//This function is to randomize the password style for the position of the object passwordStyle{}
 function randomizeData(data) {
   const keys = Object.keys(data);
   const shuffledData = {};
@@ -266,7 +294,15 @@ function extractFirstFourWords(name) {
   const words = name.split(" ");
   return words[0].slice(0, 4).toLowerCase();
 }
-
+function extractFirstThreeWords(name) {
+  const words = name.split(" ");
+  return words[0].slice(0, 3).toLowerCase();
+}
+function extractFirstTwoWords(name) {
+  const words = name.split(" ");
+  return words[0].slice(0, 2).toLowerCase();
+}
+//This function is to generate the random special characters
 function generateRandomSpecialCharacters() {
   const specialCharacters = "!@#$%&*()-_=+[]{}<>,.?/";
   let result = "";
@@ -278,6 +314,7 @@ function generateRandomSpecialCharacters() {
   return result;
 }
 
+//This function is to encrypt and decrypt the data using CryptoJS
 function encryptData(data, key) {
   const encrypted = CryptoJS.AES.encrypt(data, key).toString();
   const encoded = CryptoJS.enc.Base64.stringify(
@@ -286,6 +323,7 @@ function encryptData(data, key) {
   return encoded;
 }
 
+//This function is to encrypt and decrypt the data using CryptoJS
 function decryptData(encryptedData, key) {
   const decoded = CryptoJS.enc.Base64.parse(encryptedData).toString(
     CryptoJS.enc.Utf8

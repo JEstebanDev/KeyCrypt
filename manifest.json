@@ -4,8 +4,9 @@
   "version": "0.0.1",
   "description": "Encrypt Password based on your key",
   "permissions": ["storage", "tabs"],
-  "background": {
-    "service_worker": "background.js"
+    "background": {
+    "service_worker": "background.js",
+    "type": "module"
   },
   "action": {
     "default_title": "KeyCrypt",
