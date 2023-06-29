@@ -123,7 +123,7 @@ function generateKey() {
   passwordStyle.yearBirth.value = lastTwoDigits;
   passwordStyle.favoriteColor.value = firstTwoWordsColor;
   passwordStyle.randomCharacters.value = randomCharacters;
-  console.log(passwordStyle)
+  console.log(passwordStyle);
   // Generate the password randomly and set the values inside the object {} passwordStyle
   const shuffledPassword = randomizeData(passwordStyle);
   //This functions takes the values and set as string
@@ -233,11 +233,18 @@ function getCurrentTabURL() {
   });
 }
 
-let urlWeb = getCurrentTabURL();
-urlWeb = extractWordFromUrl(urlWeb);
+let urlWeb;
+try {
+  urlWeb = await getCurrentTabURL();
+  urlWeb = extractWordFromUrl(urlWeb);
+} catch (error) {
+  console.error("Error url:", error);
+}
 
 //This function is to extract the first four consonants from the URL
 function extractWordFromUrl(url) {
+  console.log(url);
+
   const parts = url.split("/");
   let domain = parts[2];
 
