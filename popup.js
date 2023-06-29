@@ -112,21 +112,18 @@ const passwordStyle = {
 
 //This function is to generate the key is the MOST important function
 function generateKey() {
-  const { key, firstFourWordsName, yearBirth, firstFourWordsColor } =
+  const { key, firstThreeWordsName, yearBirth, firstTwoWordsColor } =
     validateFields();
   // Get the key and value
   const lastTwoDigits = yearBirth % 100;
-  const uppercaseColor = extractConsonantsFromUrl(
-    firstFourWordsColor.toUpperCase()
-  );
+
   const randomCharacters = generateRandomSpecialCharacters();
-
   // Set the value in the input field
-  passwordStyle.name.value = firstFourWordsName;
+  passwordStyle.name.value = firstThreeWordsName;
   passwordStyle.yearBirth.value = lastTwoDigits;
-  passwordStyle.favoriteColor.value = uppercaseColor;
+  passwordStyle.favoriteColor.value = firstTwoWordsColor;
   passwordStyle.randomCharacters.value = randomCharacters;
-
+  console.log(passwordStyle)
   // Generate the password randomly and set the values inside the object {} passwordStyle
   const shuffledPassword = randomizeData(passwordStyle);
   //This functions takes the values and set as string
@@ -162,12 +159,33 @@ function resetFields() {
 
 //This function is to validate the input fields
 function validateFields() {
-  const key = document.getElementById("key").value;
-  const name = document.getElementById("name").value;
+  const key = document.getElementById("key").value.split(" ").join("");
+  const name = document.getElementById("name").value.split(" ").join("");
   const yearBirth = document.getElementById("yearBirth").value;
-  const favoriteColor = document.getElementById("favoriteColor").value;
+  const favoriteColor = document
+    .getElementById("favoriteColor")
+    .value.split(" ")
+    .join("");
 
   // Check if all the fields are filled
+  if (!key || !name || !yearBirth || !favoriteColor) {
+    Swal.fire({
+      width: 200,
+      icon: "error",
+      html: '<span style="font-size:14px">Please fill in all the required fields.</span>',
+    });
+    return;
+  }
+
+  if (key == " " || name == " " || favoriteColor == " ") {
+    Swal.fire({
+      width: 200,
+      icon: "error",
+      html: '<span style="font-size:14px">Please fill in all the required fields.</span>',
+    });
+    return;
+  }
+
   if (!key || !name || !yearBirth || !favoriteColor) {
     Swal.fire({
       width: 200,
@@ -186,25 +204,15 @@ function validateFields() {
     });
     return;
   }
-//Check if the year of birth is a number less than 4 digits
-  let firstFourWordsName = "";
-  if (name.length <= 4) {
-    firstFourWordsName = name;
-  } else {
-    firstFourWordsName = extractFirstFourWords(name);
-  }
-//Check if the year of birth is a number less than 5 digits
-  let firstFourWordsColor = "";
-  if (favoriteColor.length <= 5) {
-    firstFourWordsColor = favoriteColor;
-  } else {
-    firstFourWordsColor = extractFirstFourWords(favoriteColor);
-  }
+  let firstThreeWordsName = extractFirstThreeWords(name);
+  //Check if the year of birth is a number less than 2 digits
+  const uppercaseColor = extractConsonantsFromUrl(favoriteColor);
+  const firstTwoWordsColor = extractFirstTwoWords(uppercaseColor).toUpperCase();
   return {
     key,
-    firstFourWordsName,
+    firstThreeWordsName,
     yearBirth,
-    firstFourWordsColor,
+    firstTwoWordsColor,
   };
 }
 
@@ -225,8 +233,7 @@ function getCurrentTabURL() {
   });
 }
 
-let urlWeb;
-urlWeb = getCurrentTabURL();
+let urlWeb = getCurrentTabURL();
 urlWeb = extractWordFromUrl(urlWeb);
 
 //This function is to extract the first four consonants from the URL
@@ -279,6 +286,14 @@ function randomizeData(data) {
 function extractFirstFourWords(name) {
   const words = name.split(" ");
   return words[0].slice(0, 4).toLowerCase();
+}
+function extractFirstThreeWords(name) {
+  const words = name.split(" ");
+  return words[0].slice(0, 3).toLowerCase();
+}
+function extractFirstTwoWords(name) {
+  const words = name.split(" ");
+  return words[0].slice(0, 2).toLowerCase();
 }
 //This function is to generate the random special characters
 function generateRandomSpecialCharacters() {
