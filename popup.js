@@ -83,6 +83,8 @@ function checkKeyFunction() {
         '<span style="font-size:18px; font-weight:500px;">Check your key!</span>',
       icon: "error",
     });
+    const formResult = document.getElementById("Result");
+    formResult.style.display = "none";
   }
 }
 
@@ -144,7 +146,7 @@ function generateKey() {
     //Reset the input fields
     resetFields();
     //Reset the height of the popup
-    document.getElementsByTagName("html")[0].style.height = "100px";
+    document.getElementsByTagName("html")[0].style.height = "500px";
   });
 }
 //This function is to reset the input fields
