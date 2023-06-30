@@ -83,6 +83,8 @@ function checkKeyFunction() {
         '<span style="font-size:18px; font-weight:500px;">Check your key!</span>',
       icon: "error",
     });
+    const formResult = document.getElementById("Result");
+    formResult.style.display = "none";
   }
 }
 
