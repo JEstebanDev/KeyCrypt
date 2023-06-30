@@ -146,7 +146,7 @@ function generateKey() {
     //Reset the input fields
     resetFields();
     //Reset the height of the popup
-    document.getElementsByTagName("html")[0].style.height = "500px";
+    document.getElementsByTagName("html")[0].style.height = "100px";
   });
 }
 //This function is to reset the input fields
