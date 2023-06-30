@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "KeyCrypt",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Encrypt Password based on your key",
   "permissions": ["storage", "tabs"],
     "background": {
