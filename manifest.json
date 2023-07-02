@@ -3,7 +3,7 @@
   "name": "KeyCrypt",
   "version": "1.0.0",
   "description": "Encrypt Password based on your key",
-  "permissions": ["storage", "tabs"],
+  "permissions": ["tabs"],
     "background": {
     "service_worker": "background.js",
     "type": "module"
